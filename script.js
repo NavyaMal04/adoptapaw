@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
           pets.forEach((pet) => {
             const option = document.createElement("option");
             option.value = pet.Pet_ID;
-            option.textContent = `${pet.Name} (${pet.Breed})`;
+            option.textContent = ${pet.Name} (${pet.Breed});
             petSelect.appendChild(option);
           });
         })
@@ -85,4 +85,3 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
-  
