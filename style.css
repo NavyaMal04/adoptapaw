@@ -109,11 +109,25 @@ body.dark-mode {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(to bottom right, #ffe8ec, #ffd6e0);
-  padding: 4rem 2rem;
+  background: url('https://th.bing.com/th/id/OIP.s2HuvHgg6SA9K5tYWYsXjAHaEo?w=297&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7') center/cover no-repeat;
+  padding: 10rem 2rem; /* Increased from 4rem to 8rem */
   text-align: center;
   animation: fadeIn 1s ease-in-out;
+  color: white;
+  position: relative;
+  z-index: 1;
 }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Overlay for readability */
+  z-index: -1;
+  border-radius: inherit;
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
