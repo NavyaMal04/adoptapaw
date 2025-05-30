@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shelters | AdoptaPaw</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">🐶 AdoptaPaw</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="available.html">Available Pets</a></li>
+      <li><a href="adopt.html">Adopt a Pet</a></li>
+      <li><a href="shelterInfo.html" class="active">Shelters</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Signup</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1 style="text-align:center; color:#d6336c;">Our Partner Shelters</h1>
+    <div id="shelter-container" class="pets-container">
+      <!-- Shelter cards will be inserted here -->
+    </div>
+  </div>
+
+  <script>
+    fetch('/api/shelters')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('shelter-container');
+        data.forEach(shelter => {
+          const div = document.createElement('div');
+          div.className = 'pet-card'; // Reusing pet-card style
+          div.innerHTML = `
+            <h2>${shelter.Shelter_Name}</h2>
+            <p><strong>Location:</strong> ${shelter.Location}</p>
+            <p><strong>Contact:</strong> ${shelter.Contact_Info}</p>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        console.error('Error fetching shelters:', err);
+      });
+  </script>
+  
+</body>
+</html>

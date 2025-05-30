@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adopt a Pet - AdoptaPaw</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">🐶 AdoptaPaw </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="available.html">Available Pets</a></li>
+      <li><a href="adopt.html" class="active">Adopt a Pet</a></li>
+      <li><a href="shelterInfo.html">Shelters</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Signup</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1 style="text-align:center; color:#d6336c;">Adopt a Pet</h1>
+    <form id="adoptForm">
+      <select id="petId" required>
+        <option value="">Select Pet</option>
+      </select>
+      
+      <input type="date" id="adoptionDate" required />
+      <button type="submit">Submit Adoption</button>
+    </form>
+
+    <p id="responseMessage" class="response-message"></p>
+  </main>
+
+  <script>
+    // Fetch pet options from backend API
+    fetch('http://localhost:5000/api/pets')
+      .then(res => res.json())
+      .then(data => {
+        const petSelect = document.getElementById('petId');
+        data.forEach(pet => {
+          const option = document.createElement('option');
+          option.value = pet.Pet_ID;
+          option.text = `${pet.Name} (ID: ${pet.Pet_ID})`;
+          petSelect.appendChild(option);
+        });
+      })
+      .catch(err => {
+        console.error('Failed to fetch pets:', err);
+      });
+
+    // Simulate logged in adopterId for now, replace with real login info
+    const loggedInAdopterId = 1;
+
+    // Handle form submission
+    document.getElementById('adoptForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const petId = document.getElementById('petId').value;
+      const adoptionDate = document.getElementById('adoptionDate').value;
+
+      fetch('http://localhost:5000/api/adoption', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          Adopter_ID: loggedInAdopterId,
+          Pet_ID: petId,
+          Adoption_Date: adoptionDate
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('responseMessage').innerText = data.message;
+        document.getElementById('adoptForm').reset();
+      })
+      .catch(error => {
+        document.getElementById('responseMessage').innerText = 'Error submitting adoption.';
+      });
+    });
+  </script>
+  
+</body>
+</html>
