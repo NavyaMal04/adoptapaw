@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Request a Visit | AdoptaPaw</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">AdoptaPaw</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="available.html">Available Pets</a></li>
+      <li><a href="adopt.html">Adopt a Pet</a></li>
+      <li><a href="shelterInfo.html">Shelters</a></li>
+      <li><a href="visitRequest.html" class="active">Visit Request</a></li>
+      <li><a href="petQuiz.html">Pet Quiz</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1 style="text-align:center; color:#d6336c;">Request a Shelter Visit</h1>
+    <form id="visitForm">
+      <input type="text" id="fullName" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="tel" id="phone" placeholder="Phone Number" required />
+      <input type="date" id="visitDate" required />
+      <select id="preferredTime" required>
+        <option value="">Preferred Time Slot</option>
+        <option value="10am-12pm">10 AM – 12 PM</option>
+        <option value="12pm-2pm">12 PM – 2 PM</option>
+        <option value="2pm-4pm">2 PM – 4 PM</option>
+      </select>
+      <textarea id="notes" placeholder="Anything specific you're looking for?" rows="4"></textarea>
+      <button type="submit">Submit Request</button>
+    </form>
+    <p class="message" id="visitMessage"></p>
+  </main>
+
+  <script>
+    document.getElementById('visitForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const data = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        visitDate: document.getElementById('visitDate').value,
+        preferredTime: document.getElementById('preferredTime').value,
+        notes: document.getElementById('notes').value,
+      };
+
+      fetch('http://localhost:5000/api/visit-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('visitMessage').innerText = res.message || 'Visit Request Submitted!';
+        document.getElementById('visitForm').reset();
+      })
+      .catch(err => {
+        document.getElementById('visitMessage').innerText = 'Failed to submit. Please try again.';
+      });
+    });
+  </script>
+</body>
+</html>

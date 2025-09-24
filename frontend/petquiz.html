@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pet Personality Quiz | AdoptaPaw</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    .quiz-container {
+      max-width: 650px;
+      margin: 3rem auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .quiz-container h1 {
+      color: #d6336c;
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .question {
+      background: #fff0f3;
+      border-left: 5px solid #ff6b81;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+    }
+
+    .question p {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.8rem;
+    }
+
+    .question label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      transition: background 0.2s ease;
+    }
+
+    .question label:hover {
+      background: #ffe6ec;
+    }
+
+    .question input[type="radio"] {
+      margin-left: 5rem;
+      margin-right: 0.1rem;
+    }
+
+    .btn-quiz {
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      align-self: center;
+    }
+
+    .btn-quiz:hover {
+      background-color: #e05670;
+      transform: scale(1.05);
+    }
+
+    .result {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ff6b81;
+      background: #fff0f3;
+      padding: 1.2rem;
+      border-radius: 12px;
+      position: relative;
+      margin-top: 1rem;
+    }
+
+    .cute-img {
+      display: block;
+      max-width: 90%;
+      margin: 1.2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .paw-prints {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 60px;
+      height: 60px;
+      background: url('https://cdn-icons-png.flaticon.com/512/616/616408.png') no-repeat center;
+      background-size: contain;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">AdoptaPaw</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="available.html">Available Pets</a></li>
+      <li><a href="adopt.html">Adopt a Pet</a></li>
+      <li><a href="shelterInfo.html">Shelters</a></li>
+      <li><a href="visitRequest.html">Visit Request</a></li>
+      <li><a href="petQuiz.html" class="active">Pet Quiz</a></li>
+    </ul>
+  </nav>
+
+  <main class="quiz-container">
+    <h1>What Pet Personality Matches Yours?</h1>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. What’s your ideal weekend like?</p>
+        <label><span>Long walks and sunshine!</span><input type="radio" name="q1" value="dog" required /></label>
+        <label><span>Cuddling indoors with a book</span><input type="radio" name="q1" value="cat" /></label>
+        <label><span>Chatting and making noise</span><input type="radio" name="q1" value="parrot" /></label>
+        <label><span>Napping and snacking</span><input type="radio" name="q1" value="hamster" /></label>
+      </div>
+      <div class="question">
+        <p>2. Pick a snack:</p>
+        <label><span>Beef jerky</span><input type="radio" name="q2" value="dog" required /></label>
+        <label><span>Fancy tuna</span><input type="radio" name="q2" value="cat" /></label>
+        <label><span>Crackers</span><input type="radio" name="q2" value="parrot" /></label>
+        <label><span>Carrot sticks</span><input type="radio" name="q2" value="hamster" /></label>
+      </div>
+      <div class="question">
+        <p>3. Your friends would describe you as:</p>
+        <label><span>Loyal and energetic</span><input type="radio" name="q3" value="dog" required /></label>
+        <label><span>Independent and clever</span><input type="radio" name="q3" value="cat" /></label>
+        <label><span>Loud and funny</span><input type="radio" name="q3" value="parrot" /></label>
+        <label><span>Chill and adorable</span><input type="radio" name="q3" value="hamster" /></label>
+      </div>
+      <button type="submit" class="btn-quiz">Get My Pet Match!</button>
+    </form>
+    <div id="result" class="result" style="display:none;"></div>
+    <img id="petImage" class="cute-img" style="display:none;" />
+  </main>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = new FormData(this);
+      const scores = { dog: 0, cat: 0, parrot: 0, hamster: 0 };
+
+      for (let [key, value] of form.entries()) {
+        scores[value]++;
+      }
+
+      let topPet = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+      const result = document.getElementById('result');
+      const petImage = document.getElementById('petImage');
+
+      let message = "";
+      let img = "";
+
+      switch(topPet) {
+        case "dog":
+          message = "You're a DOG! Loyal, excited, and everyone’s best friend 🐶";
+          img = "https://img.freepik.com/premium-photo/cute-puppy-happy-ai-generate_992651-58.jpg";
+          break;
+        case "cat":
+          message = "You're a CAT! Mysterious, classy, and selectively social 🐱";
+          img = "https://img.freepik.com/premium-photo/cute-cat_862330-18510.jpg";
+          break;
+        case "parrot":
+          message = "You're a PARROT! Colorful, talkative, and always the center of attention 🦜";
+          img = "https://img.freepik.com/premium-photo/cute-parrot-tree-branch_162279-3680.jpg";
+          break;
+        case "hamster":
+          message = "You're a HAMSTER! Chill, cute, and living for the snacks 🐹";
+          img = "https://static.vecteezy.com/system/resources/thumbnails/038/090/698/small_2x/ai-generated-hamster-high-quality-image-free-photo.jpg";
+          break;
+      }
+
+      result.innerHTML = `<div class='paw-prints'></div><p>${message}</p>`;
+      result.style.display = "block";
+      petImage.src = img;
+      petImage.style.display = "block";
+
+      // Trigger Confetti 🎉
+      confetti({
+        particleCount: 120,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ['#ff6b81', '#ffcccb', '#ffd6e0']
+      });
+    });
+  </script>
+</body>
+</html>

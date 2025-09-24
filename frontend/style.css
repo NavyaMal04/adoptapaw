@@ -1,0 +1,363 @@
+/* Enhanced Style Sheet for AdoptaPaw with Advanced Aesthetics */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary: #ff6b81;
+  --primary-dark: #e05670;
+  --light-pink: #fff0f3;
+  --gradient: linear-gradient(to bottom right, #fff6f9, #ffe6eb);
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-blur: blur(10px);
+  --text-color: #333;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--gradient);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(90deg, var(--primary), #ff9a8b);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  left: 0;
+  bottom: -4px;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  background: url('https://th.bing.com/th/id/OIP.s2HuvHgg6SA9K5tYWYsXjAHaEo?w=297&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7') center/cover no-repeat;
+  padding: 10rem 2rem; /* Increased from 4rem to 8rem */
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Overlay for readability */
+  z-index: -1;
+  border-radius: inherit;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #d6336c;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: #444;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+/* Container */
+.container {
+  padding: 2rem;
+  max-width: 1100px;
+  margin: auto;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Sections */
+.info, .stats, .reviews {
+  margin-bottom: 3rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  transition: background 0.4s ease;
+}
+
+.stats ul {
+  list-style: disc inside;
+  padding-left: 1.5rem;
+  color: var(--text-color);
+}
+
+.stats li {
+  margin-bottom: 0.7rem;
+  font-size: 1.05rem;
+}
+
+/* Review Cards */
+.review-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.review-card {
+  background-color: var(--light-pink);
+  padding: 1rem;
+  border-radius: 12px;
+  flex: 1 1 250px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(214, 51, 108, 0.2);
+}
+
+.review-card p {
+  font-style: italic;
+  margin-bottom: 0.8rem;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(90deg, var(--primary), #ff9a8b);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-top: 3rem;
+}
+
+/* Pet Cards */
+.pets-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.pet-card {
+  background: var(--light-pink);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.pet-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(214, 51, 108, 0.3);
+}
+
+.pet-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.pet-card:hover img {
+  transform: scale(1.05);
+}
+
+.pet-card h2 {
+  color: #d6336c;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+input, textarea, select {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 6px rgba(255, 107, 129, 0.5);
+}
+
+button[type="submit"] {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.message {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: green;
+  text-align: center;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .review-cards {
+    flex-direction: column;
+  }
+
+  form {
+    max-width: 90%;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/lord-icon-element@3.4.0/lord-icon.min.js');
+
+:root {
+  --primary: #ff6b81;
+  --primary-dark: #e05670;
+  --light-pink: #fff0f3;
+  --gradient: linear-gradient(to bottom right, #fff6f9, #ffe6eb);
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-blur: blur(10px);
+  --text-color: #333;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Particle Background */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: var(--gradient);
+}
+
+/* Loader Spinner */
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid var(--primary);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 50px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
