@@ -30,7 +30,8 @@ AdoptAPaw is a full-stack web application designed to help users adopt pets from
 
 1. Clone the repository:  
    ```bash
-   git clone <your-repo-url>
+   git clone <https://github.com/NavyaMal04/adoptapaw.git>
+
 2. Install dependencies:
 npm install cd adoptapaw/backend
 
@@ -50,7 +51,7 @@ node server.js
 
 http://localhost:5000
 
-6. Database Setup
+6.Database Setup
 Tables
 
 Adopter: Stores user information and login credentials.
